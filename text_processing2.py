@@ -2,6 +2,7 @@
 # Test Processing II  #
 #######################
 
+import re
 
 def digits_to_words(input_string):
     """
@@ -28,9 +29,10 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
+    dic={0:'zero',1:'one',2:'two',3:'three',4:'four',5:'five',6:'six',7:'seven',8:'eight',9:'nine'}
+    numbers=re.findall('\d',input_string)
+    digit_string = ' '.join([dic[int(i)] for i in numbers])
     return digit_string
-
 
 """
 컴퓨터 프로그래밍에 많은 명명 규칙이 있지만, 두 규칙이 특히 흔히 쓰입니다. 
@@ -64,5 +66,17 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+    under_list=underscore_str.split('_')
+    camelcase_str = ''
+    flag=True
+    if len(under_list)>1:
+        for i in under_list:
+            if i:
+                if flag:
+                    camelcase_str+=i.lower()
+                    flag=False
+                else:
+                    camelcase_str+=i.lower().capitalize()
+    else:
+        camelcase_str=under_list[0]
     return camelcase_str
